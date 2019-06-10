@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_operation">
+    <sys_ws_operation action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <consumes>application/json,application/xml,text/xml</consumes>
+        <consumes_customized>false</consumes_customized>
+        <default_operation_uri/>
+        <enforce_acl>cf9d01d3e73003009d6247e603f6a990</enforce_acl>
+        <http_method>POST</http_method>
+        <name>Dash Button</name>
+        <operation_script><![CDATA[(function process(/*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
+//DASH SRAPI: body = {"serialNumber":"G030MD041022JSC8","batteryVoltage":"1506mV","clickType":"SINGLE"}
+
+	if (request.body.data.clickType == 'SINGLE'){
+		gs.info('DASH SRAPI: Single Click = Something is wrong with the conference room display');
+		var incGR = new GlideRecord('incident');
+		    incGR.initialize();
+		    incGR.short_description = 'There is and issue with the display in conference room';
+		    incGR.priority = '1';
+		    incGR.severity = '3';
+		    incGR.description = "There is an issue with the conference room display and needs to be looked into";
+		    incGR.state = '1';
+		    incGR.assignment_group = 'd625dccec0a8016700a222a0f7900d06';
+		    incGR.category = 'inquiry';
+			incGR.location = getDashLocation(request.body.data.serialNumber);		
+		    incGR.insert();
+	}
+
+	if (request.body.data.clickType == 'DOUBLE'){
+		gs.info('DASH SRAPI: Double Click = Something is wrong with the conference room ');
+			var srqGR = new GlideRecord('incident');
+		    srqGR.initialize();
+		    srqGR.short_description = 'There is and issue with the conference room';
+		    srqGR.priority = '1';
+		    srqGR.severity = '3';
+		    srqGR.description = "There is an issue with the conference room needs to be looked into";
+		    srqGR.state = '1';
+		    srqGR.assignment_group = 'd625dccec0a8016700a222a0f7900d06';
+		    srqGR.category = 'inquiry';		    
+		    srqGR.location = getDashLocation(request.body.data.serialNumber);
+		    srqGR.insert();
+	}
+
+})(request, response);
+
+function getDashLocation(strSerialNumber){
+		var dashSerialGR = new GlideRecord('x_145954_aws_dash_dash_button_id');
+	    dashSerialGR.addQuery('dash_id', strSerialNumber);
+	    dashSerialGR.query();
+	if (dashSerialGR.next()){
+		return dashSerialGR.dash_location;
+	}
+	else{
+		//button does not exist so we need to log it.  
+		gs.log('DASH Button Alert: A button with the ID of ' + strSerialNumber + ' has been clicked and is not registered');
+	}
+}]]></operation_script>
+        <operation_uri>/api/x_145954_aws_dash/button</operation_uri>
+        <produces>application/json,application/xml,text/xml</produces>
+        <produces_customized>false</produces_customized>
+        <relative_path>/</relative_path>
+        <request_example/>
+        <requires_acl_authorization>true</requires_acl_authorization>
+        <requires_authentication>false</requires_authentication>
+        <requires_snc_internal_role>true</requires_snc_internal_role>
+        <short_description/>
+        <sys_class_name>sys_ws_operation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-06-05 16:46:10</sys_created_on>
+        <sys_id>4289a12edb71330023cbe1bb4b96199c</sys_id>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_name>Dash Button</sys_name>
+        <sys_package display_value="AWS Dash" source="x_145954_aws_dash">3719e9eadb71330023cbe1bb4b961903</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="AWS Dash">3719e9eadb71330023cbe1bb4b961903</sys_scope>
+        <sys_update_name>sys_ws_operation_4289a12edb71330023cbe1bb4b96199c</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-06-05 19:45:12</sys_updated_on>
+        <web_service_definition display_value="button">cd69212edb71330023cbe1bb4b961983</web_service_definition>
+        <web_service_version/>
+    </sys_ws_operation>
+</record_update>

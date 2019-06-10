@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="Dash Button ID" max_length="40" name="x_145954_aws_dash_dash_button_id" type="collection">
+        <element choice="1" label="Click Type" max_length="32" name="click_type" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Single Click" sequence="100" value="SINGLE"/>
+                <element inactive_on_update="false" label="Double Click" sequence="200" value="DOUBLE"/>
+                <element inactive_on_update="false" label="Long Click" sequence="300" value="LONG"/>
+            </choice>
+        </element>
+        <element label="Dash ID" max_length="40" name="dash_id" type="string"/>
+        <element label="Dash Location" max_length="32" name="dash_location" reference="cmn_location" type="reference"/>
+        <element label="Description" max_length="100" name="description" type="string"/>
+        <element label="JSON Template" max_length="500" name="json_template" type="string"/>
+        <index name="index">
+            <element name="dash_location"/>
+        </index>
+    </element>
+</database>
