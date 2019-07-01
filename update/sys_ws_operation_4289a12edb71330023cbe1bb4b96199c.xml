@@ -9,7 +9,8 @@
         <name>Dash Button</name>
         <operation_script><![CDATA[(function process(/*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
 //DASH SRAPI: body = {"serialNumber":"G030MD041022JSC8","batteryVoltage":"1506mV","clickType":"SINGLE"}
-
+//update
+//update
 	if (request.body.data.clickType == 'SINGLE'){
 		gs.info('DASH SRAPI: Single Click = Something is wrong with the conference room display');
 		var incGR = new GlideRecord('incident');
@@ -67,14 +68,14 @@ function getDashLocation(strSerialNumber){
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-06-05 16:46:10</sys_created_on>
         <sys_id>4289a12edb71330023cbe1bb4b96199c</sys_id>
-        <sys_mod_count>8</sys_mod_count>
+        <sys_mod_count>10</sys_mod_count>
         <sys_name>Dash Button</sys_name>
         <sys_package display_value="AWS Dash" source="x_145954_aws_dash">3719e9eadb71330023cbe1bb4b961903</sys_package>
         <sys_policy/>
         <sys_scope display_value="AWS Dash">3719e9eadb71330023cbe1bb4b961903</sys_scope>
         <sys_update_name>sys_ws_operation_4289a12edb71330023cbe1bb4b96199c</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-06-05 19:45:12</sys_updated_on>
+        <sys_updated_on>2019-07-01 13:43:45</sys_updated_on>
         <web_service_definition display_value="button">cd69212edb71330023cbe1bb4b961983</web_service_definition>
         <web_service_version/>
     </sys_ws_operation>
